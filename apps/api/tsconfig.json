@@ -2,5 +2,11 @@
   "extends": "@saas/tsconfig/node.json",
   "include": [
     "src/**/*"
-  ]
+  ],
+  "compilerOptions": {
+     "paths": {
+      "@routes/*": ["./src/http/routes/*"],
+      "@/*": ["./src/*"]
+    }
+  }
 }
