@@ -4,9 +4,11 @@
     "src/**/*"
   ],
   "compilerOptions": {
+    "baseUrl": ".",
      "paths": {
       "@routes/*": ["./src/http/routes/*"],
-      "@/*": ["./src/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@/*": ["./src/*"],
     }
   }
 }
