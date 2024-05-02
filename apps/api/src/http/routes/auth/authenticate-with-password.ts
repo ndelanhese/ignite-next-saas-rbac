@@ -15,6 +15,14 @@ export const authenticateWithPassword = async (app: FastifyInstance) => {
           email: z.string().email(),
           password: z.string(),
         }),
+        response: {
+          200: z.object({
+            token: z.string(),
+          }),
+          400: z.object({
+            message: z.string(),
+          }),
+        },
       },
     },
     async (request, reply) => {
@@ -54,7 +62,7 @@ export const authenticateWithPassword = async (app: FastifyInstance) => {
         },
       )
 
-      return reply.status(200).send(token)
+      return reply.status(200).send({ token })
     },
   )
 }
