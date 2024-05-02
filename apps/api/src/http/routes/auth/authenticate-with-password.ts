@@ -1,5 +1,5 @@
+import { BadRequestError } from '@errors/bad-request-error'
 import { prisma } from '@lib/prisma'
-import { BadRequestError } from '@routes/_errors/bad-request-error'
 import { compare } from 'bcryptjs'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'

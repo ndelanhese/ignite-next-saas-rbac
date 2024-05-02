@@ -1,13 +1,15 @@
 {
   "extends": "@saas/tsconfig/node.json",
   "include": [
-    "src/**/*"
+    "src/**/*", "@types/*.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",
      "paths": {
       "@routes/*": ["./src/http/routes/*"],
       "@lib/*": ["./src/lib/*"],
+      "@middlewares/*": ["./src/http/middlewares/*"],
+      "@errors/*": ["./src/http/routes/_errors/*"],
       "@/*": ["./src/*"],
     }
   }
