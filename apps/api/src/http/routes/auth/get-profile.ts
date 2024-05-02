@@ -1,4 +1,5 @@
 import { prisma } from '@lib/prisma'
+import { NotFoundError } from '@routes/_errors/not-found-error'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
@@ -19,9 +20,6 @@ export const getProfile = async (app: FastifyInstance) => {
               avatarUrl: z.string().url().nullable(),
             }),
           }),
-          404: z.object({
-            message: z.string(),
-          }),
         },
       },
     },
@@ -41,7 +39,7 @@ export const getProfile = async (app: FastifyInstance) => {
       })
 
       if (!user) {
-        return reply.status(404).send({ message: 'User not found' })
+        throw new NotFoundError('User not found')
       }
 
       return reply.send({ user })

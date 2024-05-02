@@ -1,4 +1,5 @@
 import { prisma } from '@lib/prisma'
+import { BadRequestError } from '@routes/_errors/bad-request-error'
 import { hash } from 'bcryptjs'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
@@ -28,9 +29,7 @@ export const createAccount = async (app: FastifyInstance) => {
       })
 
       if (userWithSameEmail) {
-        return reply
-          .status(400)
-          .send({ message: 'User with same e-mail already exists' })
+        throw new BadRequestError('User with same e-mail already exists')
       }
 
       const [, domain] = email.split('@')
@@ -60,6 +59,6 @@ export const createAccount = async (app: FastifyInstance) => {
       })
 
       return reply.status(201).send()
-    }
+    },
   )
 }
