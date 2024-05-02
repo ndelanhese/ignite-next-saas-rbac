@@ -9,6 +9,8 @@ export const createAccount = async (app: FastifyInstance) => {
     '/users',
     {
       schema: {
+        summary: 'Create a new account',
+        tags: ['auth'],
         body: z.object({
           name: z.string(),
           email: z.string().email(),
@@ -42,6 +44,6 @@ export const createAccount = async (app: FastifyInstance) => {
       })
 
       return reply.status(201).send()
-    },
+    }
   )
 }
