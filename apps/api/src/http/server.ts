@@ -2,10 +2,12 @@ import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
+import { authenticateWithGithub } from '@routes/auth/authenticate-with-github'
 import { authenticateWithPassword } from '@routes/auth/authenticate-with-password'
 import { createAccount } from '@routes/auth/create-account'
 import { getProfile } from '@routes/auth/get-profile'
 import { requestPasswordRecover } from '@routes/auth/request-password-recover'
+import { resetPassword } from '@routes/auth/reset-password'
 import { fastify } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import {
@@ -15,7 +17,6 @@ import {
 } from 'fastify-type-provider-zod'
 
 import { errorHandler } from './error-handler'
-import { resetPassword } from '@routes/auth/reset-password'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -51,6 +52,7 @@ app.register(authenticateWithPassword)
 app.register(getProfile)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
+app.register(authenticateWithGithub)
 
 app.listen({ port: 3333 }).then(() => {
   console.log('HTTP server running!')
