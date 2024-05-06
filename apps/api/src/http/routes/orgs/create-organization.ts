@@ -46,10 +46,20 @@ export const createOrganization = async (app: FastifyInstance) => {
           }
         }
 
+        let slug = createSlug(name)
+
+        const organizationBySlug = await prisma.organization.findUnique({
+          where: { slug },
+        })
+
+        if (organizationBySlug) {
+          slug = createSlug(`${name} ${new Date().getTime()}`)
+        }
+
         const organization = await prisma.organization.create({
           data: {
             name,
-            slug: createSlug(name),
+            slug,
             shouldAttachUsersByDomain,
             ownerId: userId,
             members: {
