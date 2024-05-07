@@ -1,22 +1,23 @@
 import { prisma } from '@lib/prisma'
 import { auth } from '@middlewares/auth'
+import { BadRequestError } from '@routes/_errors/bad-request-error'
 import { UnauthorizedError } from '@routes/_errors/unauthorized-error'
-import { createSlug } from '@utils/create-slug'
+import { projectSchema } from '@saas/auth'
 import { getUserPermissions } from '@utils/get-user-permissions'
 import { type FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import z from 'zod'
 
-export const createProject = async (app: FastifyInstance) => {
+export const updateProject = async (app: FastifyInstance) => {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
-      '/organizations/:organization_slug/projects',
+    .put(
+      '/organizations/:organization_slug/projects/:project_slug',
       {
         schema: {
           tags: ['projects'],
-          summary: 'Create a new project',
+          summary: 'Update a project',
           security: [{ bearerAuth: [] }],
           body: z.object({
             name: z.string(),
@@ -24,53 +25,48 @@ export const createProject = async (app: FastifyInstance) => {
           }),
           params: z.object({
             organization_slug: z.string(),
+            project_slug: z.string(),
           }),
           response: {
-            201: z.object({
-              projectId: z.string().uuid(),
-            }),
+            204: z.null(),
           },
         },
       },
       async (request, reply) => {
-        const { organization_slug: slug } = request.params
+        const { organization_slug: slug, project_slug: projectSlug } =
+          request.params
         const userId = await request.getCurrentUserId()
         const { membership, organization } =
           await request.getUserMembership(slug)
 
-        const { cannot } = getUserPermissions(userId, membership.role)
+        const project = await prisma.project.findUnique({
+          where: { slug: projectSlug, organizationId: organization.id },
+        })
 
-        if (cannot('create', 'Project')) {
+        if (!project) {
+          throw new BadRequestError('Project not found.')
+        }
+
+        const { cannot } = getUserPermissions(userId, membership.role)
+        const authProject = projectSchema.parse(project)
+
+        if (cannot('update', authProject)) {
           throw new UnauthorizedError(
-            "You're not allowed to create a new project.",
+            "You're not allowed to update this project.",
           )
         }
 
-        const { name, description } = request.body
+        const { description, name } = request.body
 
-        let projectSlug = createSlug(name)
-
-        const organizationBySlug = await prisma.organization.findUnique({
-          where: { slug: projectSlug },
-        })
-
-        if (organizationBySlug) {
-          projectSlug = createSlug(`${name} ${new Date().getTime()}`)
-        }
-
-        const project = await prisma.project.create({
+        await prisma.project.update({
           data: {
             name,
-            slug: projectSlug,
             description,
-            organizationId: organization.id,
-            ownerId: userId,
           },
+          where: { slug: projectSlug, organizationId: organization.id },
         })
 
-        return reply.status(201).send({
-          projectId: project.id,
-        })
+        return reply.status(204).send()
       },
     )
 }

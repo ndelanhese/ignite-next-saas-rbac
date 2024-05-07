@@ -13,7 +13,7 @@ export const deleteProject = async (app: FastifyInstance) => {
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
     .delete(
-      '/organizations/:organization_slug/project/:project_slug',
+      '/organizations/:organization_slug/projects/:project_slug',
       {
         schema: {
           tags: ['projects'],
@@ -53,7 +53,7 @@ export const deleteProject = async (app: FastifyInstance) => {
         }
 
         await prisma.project.delete({
-          where: { slug: projectSlug },
+          where: { slug: projectSlug, organizationId: organization.id },
         })
 
         return reply.status(204).send()
