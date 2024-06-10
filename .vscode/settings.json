@@ -18,5 +18,8 @@
   "editor.formatOnPaste": true,
   "cSpell.words": [
     "openapi"
-  ]
+  ],
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
