@@ -6,20 +6,23 @@ import { Button } from '@components/ui/button'
 import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
+import { useFormState } from '@hooks/use-form-state'
 import { AlertTriangle, Loader2 } from 'lucide-react'
 import Link from 'next/link'
-import { useActionState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { signInWithEmailAndPassword } from './actions'
 
 export const SignInForm = () => {
-  const [{ errors, message, success }, formAction, isPending] = useActionState(
-    signInWithEmailAndPassword,
-    { success: false, message: null, errors: null },
-  )
+  const { push } = useRouter()
+
+  const [{ errors, message, success }, handleSubmit, isPending] = useFormState({
+    action: signInWithEmailAndPassword,
+    onSuccess: () => push('/'),
+  })
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4">
       {success === false && message && (
         <Alert variant="destructive">
           <AlertTriangle className="size-4" />

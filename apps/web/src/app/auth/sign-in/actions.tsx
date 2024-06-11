@@ -1,6 +1,8 @@
 'use server'
 
 import { HTTPError } from 'ky'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 import { signInWithPassword } from '@/http/sign-in-with-password'
@@ -12,10 +14,7 @@ const signInSchema = z.object({
   password: z.string().min(1, 'Provide your password'),
 })
 
-export const signInWithEmailAndPassword = async (
-  _: unknown,
-  data: FormData,
-) => {
+export const signInWithEmailAndPassword = async (data: FormData) => {
   const parsedData = signInSchema.safeParse(Object.fromEntries(data))
 
   if (!parsedData.success) {
@@ -31,7 +30,12 @@ export const signInWithEmailAndPassword = async (
       password,
     })
 
-    console.log(token)
+    const SEVEN_DAYS_IN_SECONDS = 60 * 60 * 24 * 7
+
+    cookies().set('token', token, {
+      path: '/',
+      maxAge: SEVEN_DAYS_IN_SECONDS,
+    })
   } catch (error) {
     if (error instanceof HTTPError) {
       const { message } = await error.response.json()
@@ -46,5 +50,5 @@ export const signInWithEmailAndPassword = async (
     }
   }
 
-  return { success: true, message: null, errors: null }
+  redirect('/')
 }
