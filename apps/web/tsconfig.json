@@ -6,6 +6,7 @@
       "@lib/*": ["./src/lib/*"],
       "@components/*": ["./src/components/*"],
       "@hooks/*": ["./src/hooks/*"],
+      "@http/*": ["./src/http/*"],
       "@/*": ["./src/*"]
     }
   },

@@ -1,12 +1,13 @@
 {
-  "name": "web",
+  "name": "@saas/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "bun env:load next dev --turbo",
+    "build": "bun env:load next build",
+    "start": "bun env:load next start",
+    "lint": "next lint",
+    "env:load": "dotenv -e ../../.env --"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.0.2",
@@ -21,18 +22,20 @@
     "react-dom": "19.0.0-rc-f994737d14-20240522",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "@saas/env": "workspace:*",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "typescript": "5.4.5",
+    "@saas/eslint-config": "workspace:*",
+    "@saas/prettier": "workspace:*",
+    "@saas/tsconfig": "workspace:*",
     "@types/node": "20.14.2",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "dotenv-cli": "^7.4.2",
     "postcss": "8.4.38",
     "tailwindcss": "3.4.4",
-    "@saas/eslint-config": "workspace:*",
-    "@saas/prettier": "workspace:*",
-    "@saas/tsconfig": "workspace:*"
+    "typescript": "5.4.5"
   },
   "prettier": "@saas/prettier",
   "eslintConfig": {

@@ -11,6 +11,7 @@ import { AlertTriangle, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
+import { signInWithGithub } from '../actions'
 import { signInWithEmailAndPassword } from './actions'
 
 export const SignInForm = () => {
@@ -22,59 +23,62 @@ export const SignInForm = () => {
   })
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {success === false && message && (
-        <Alert variant="destructive">
-          <AlertTriangle className="size-4" />
-          <AlertTitle>Sign in failed!</AlertTitle>
-          <AlertDescription>{message}</AlertDescription>
-        </Alert>
-      )}
-      <div className="space-y-1">
-        <Label htmlFor="email">E-mail</Label>
-        <Input name="email" type="email" id="email" inputMode="email" />
-
-        {errors?.email && (
-          <p className="text-sm font-medium text-red-500 dark:text-red-400">
-            {errors.email[0]}
-          </p>
+    <div className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {success === false && message && (
+          <Alert variant="destructive">
+            <AlertTriangle className="size-4" />
+            <AlertTitle>Sign in failed!</AlertTitle>
+            <AlertDescription>{message}</AlertDescription>
+          </Alert>
         )}
-      </div>
+        <div className="space-y-1">
+          <Label htmlFor="email">E-mail</Label>
+          <Input name="email" type="email" id="email" inputMode="email" />
 
-      <div className="space-y-1">
-        <Label htmlFor="password">Password</Label>
-        <Input name="password" type="password" id="password" />
-        {errors?.password && (
-          <p className="text-sm font-medium text-red-500 dark:text-red-400">
-            {errors.password[0]}
-          </p>
-        )}
+          {errors?.email && (
+            <p className="text-sm font-medium text-red-500 dark:text-red-400">
+              {errors.email[0]}
+            </p>
+          )}
+        </div>
 
-        <Link
-          href="/auth/forgot-password"
-          className="pt-2 text-sm font-medium text-foreground hover:underline"
-        >
-          Forgot your password
-        </Link>
-      </div>
+        <div className="space-y-1">
+          <Label htmlFor="password">Password</Label>
+          <Input name="password" type="password" id="password" />
+          {errors?.password && (
+            <p className="text-sm font-medium text-red-500 dark:text-red-400">
+              {errors.password[0]}
+            </p>
+          )}
 
-      <Button className="w-full" type="submit" disabled={isPending}>
-        {isPending ? (
-          <Loader2 className="size-4 animate-spin" />
-        ) : (
-          'Sign in with e-mail'
-        )}
-      </Button>
+          <Link
+            href="/auth/forgot-password"
+            className="pt-2 text-sm font-medium text-foreground hover:underline"
+          >
+            Forgot your password
+          </Link>
+        </div>
 
-      <Button className="w-full" variant="link" size="sm" asChild>
-        <Link href="/auth/sign-up">Create new account</Link>
-      </Button>
+        <Button className="w-full" type="submit" disabled={isPending}>
+          {isPending ? (
+            <Loader2 className="size-4 animate-spin" />
+          ) : (
+            'Sign in with e-mail'
+          )}
+        </Button>
 
-      <Separator />
+        <Button className="w-full" variant="link" size="sm" asChild>
+          <Link href="/auth/sign-up">Create new account</Link>
+        </Button>
 
-      <Button className="w-full" variant="outline">
-        <GithubIcon className="mr-2 dark:invert" /> Sign in with Github
-      </Button>
-    </form>
+        <Separator />
+      </form>
+      <form action={signInWithGithub}>
+        <Button className="w-full" variant="outline" type="submit">
+          <GithubIcon className="mr-2 dark:invert" /> Sign in with Github
+        </Button>
+      </form>
+    </div>
   )
 }

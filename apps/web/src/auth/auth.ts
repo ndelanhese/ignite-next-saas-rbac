@@ -2,6 +2,6 @@
 
 import { cookies } from 'next/headers'
 
-export const isAuthenticated = () => {
+export const isAuthenticated = async () => {
   return !!cookies().get('token')?.value
 }
