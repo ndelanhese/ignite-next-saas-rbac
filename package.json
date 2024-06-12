@@ -7,10 +7,12 @@
     "lint": "turbo lint"
   },
   "devDependencies": {
-    "turbo": "1.13.3"
+    "turbo": "2.0.3"
   },
-  "engines": {
-    "node": ">=18"
-  },
-  "workspaces": ["apps/*", "packages/*", "config/*"]
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "config/*"
+  ],
+  "packageManager": ">=bun@1.1.13"
 }
