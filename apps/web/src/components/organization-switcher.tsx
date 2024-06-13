@@ -1,3 +1,4 @@
+import { getCurrentOrg } from '@auth/auth'
 import { Avatar, AvatarFallback, AvatarImage } from '@components/ui/avatar'
 import {
   DropdownMenu,
@@ -11,11 +12,10 @@ import {
 import { getOrganizations } from '@http/get-organizations'
 import { getNameInitials } from '@utils/get-name-initals'
 import { ChevronsUpDown, PlusCircle } from 'lucide-react'
-import { cookies } from 'next/headers'
 import Link from 'next/link'
 
 export const OrganizationSwitcher = async () => {
-  const currentOrg = cookies().get('org')?.value
+  const currentOrg = getCurrentOrg()
   const { organizations } = await getOrganizations()
 
   const currentOrganization = organizations.find(
