@@ -1,5 +1,7 @@
 import { ability } from '@auth/auth'
 import { ProfileButton } from '@components/profile-button'
+import { ThemeSwitcher } from '@components/theme/theme-switcher'
+import { Separator } from '@components/ui/separator'
 import { DatabaseZap, Slash } from 'lucide-react'
 import Link from 'next/link'
 
@@ -23,6 +25,8 @@ export const Header = async () => {
       </div>
 
       <div className="inline-flex items-center gap-4">
+        <ThemeSwitcher />
+        <Separator orientation="vertical" className="h-5" />
         <ProfileButton />
       </div>
     </header>

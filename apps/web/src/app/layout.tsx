@@ -1,5 +1,6 @@
 import './globals.css'
 
+import { ThemeProvider } from '@components/theme/theme-provider'
 import { cn } from '@lib/utils'
 import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
@@ -22,7 +23,7 @@ type RootLayoutProps = Readonly<{
 }>
 
 const RootLayout = ({ children }: RootLayoutProps) => (
-  <html lang="pt-BR" suppressHydrationWarning className="dark">
+  <html lang="pt-BR" suppressHydrationWarning>
     <head />
     <body
       className={cn(
@@ -30,7 +31,14 @@ const RootLayout = ({ children }: RootLayoutProps) => (
         fontSans.variable,
       )}
     >
-      {children}
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {children}
+      </ThemeProvider>
     </body>
   </html>
 )
