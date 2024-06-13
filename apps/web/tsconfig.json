@@ -8,6 +8,7 @@
       "@hooks/*": ["./src/hooks/*"],
       "@http/*": ["./src/http/*"],
       "@auth/*": ["./src/auth/*"],
+      "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]
     }
   },

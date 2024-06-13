@@ -6,16 +6,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu'
+import { getNameInitials } from '@utils/get-name-initals'
 import { ChevronDown, LogOut } from 'lucide-react'
 import Link from 'next/link'
-
-const getInitials = (fullName: string): string => {
-  const names = fullName.split(' ')
-  const firstNameInitial = names[0].charAt(0).toUpperCase()
-  const lastNameInitial =
-    names.length > 1 ? names[names.length - 1].charAt(0).toUpperCase() : ''
-  return `${firstNameInitial}${lastNameInitial}`
-}
 
 export const ProfileButton = async () => {
   const { user } = await auth()
@@ -27,10 +20,10 @@ export const ProfileButton = async () => {
           <span className="text-sm font-medium">{user.name}</span>
           <span className="text-xs text-muted-foreground">{user.email}</span>
         </div>
-        <Avatar>
-          {user.avatarUrl && <AvatarImage src={user.avatarUrl} />}
-          {user.name && (
-            <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+        <Avatar className="size-8">
+          {user?.avatarUrl && <AvatarImage src={user.avatarUrl} />}
+          {user?.name && (
+            <AvatarFallback>{getNameInitials(user.name)}</AvatarFallback>
           )}
         </Avatar>
         <ChevronDown className="size-4 text-muted-foreground" />
