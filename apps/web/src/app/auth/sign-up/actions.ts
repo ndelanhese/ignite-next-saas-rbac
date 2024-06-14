@@ -5,7 +5,7 @@ import { HTTPError } from 'ky'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
-const signInSchema = z
+const signUpSchema = z
   .object({
     name: z
       .string({ required_error: 'Please, provide your name' })
@@ -27,7 +27,7 @@ const signInSchema = z
   })
 
 export const signUpAction = async (data: FormData) => {
-  const parsedData = signInSchema.safeParse(Object.fromEntries(data))
+  const parsedData = signUpSchema.safeParse(Object.fromEntries(data))
 
   if (!parsedData.success) {
     const errors = parsedData?.error?.flatten()?.fieldErrors
