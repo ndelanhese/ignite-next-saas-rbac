@@ -27,7 +27,7 @@ export const env = createEnv({
       process.env.GITHUB_OAUTH_CLIENT_REDIRECT_URI,
     GITHUB_OAUTH_CLIENT_SECRET: process.env.GITHUB_OAUTH_CLIENT_SECRET,
 
-    NEXT_PUBLIC_API_BASE_URL: process.env.API_BASE_URL,
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
   },
   emptyStringAsUndefined: true,
 })
