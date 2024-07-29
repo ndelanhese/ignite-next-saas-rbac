@@ -6,6 +6,7 @@ import { DatabaseZap, Slash } from 'lucide-react'
 import Link from 'next/link'
 
 import { OrganizationSwitcher } from './organization-switcher'
+import { ProjectSwitcher } from './project-switcher'
 
 export const Header = async () => {
   const permissions = await ability()
@@ -20,8 +21,12 @@ export const Header = async () => {
         <Slash className="size-3 -rotate-[24deg] stroke-border" />
 
         <OrganizationSwitcher />
-
-        {permissions?.can('get', 'Project') && <p>projects</p>}
+        {permissions?.can('get', 'Project') && (
+          <>
+            <Slash className="size-3 -rotate-[24deg] stroke-border" />
+            <ProjectSwitcher />
+          </>
+        )}
       </div>
 
       <div className="inline-flex items-center gap-4">

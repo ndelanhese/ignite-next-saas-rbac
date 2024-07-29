@@ -11,7 +11,7 @@ export const getProjects = async (app: FastifyInstance) => {
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
     .get(
-      '/organizations/:organization_slug/projects/',
+      '/organizations/:organization_slug/projects',
       {
         schema: {
           tags: ['projects'],
