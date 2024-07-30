@@ -95,7 +95,7 @@ export const ProjectSwitcher = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`org/${orgSlug}/create-project`} prefetch={false}>
+          <Link href={`/org/${orgSlug}/create-project`} prefetch={false}>
             <PlusCircle className="mr-2 size-4" /> Create new
           </Link>
         </DropdownMenuItem>
