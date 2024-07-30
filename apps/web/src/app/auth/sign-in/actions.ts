@@ -38,7 +38,7 @@ export const signInWithEmailAndPassword = async (data: FormData) => {
     })
   } catch (error) {
     if (error instanceof HTTPError) {
-      const { message } = await error.response.json()
+      const { message } = await error.response.json<{ message: string }>()
 
       return { success: false, message, errors: null }
     }

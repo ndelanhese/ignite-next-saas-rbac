@@ -1,7 +1,6 @@
-import type { ReactNode } from 'react'
-
 import { Header } from '@components/header'
 import { Tabs } from '@components/tabs'
+import type { ReactNode } from 'react'
 
 type OrgLayoutProps = Readonly<{
   children: ReactNode

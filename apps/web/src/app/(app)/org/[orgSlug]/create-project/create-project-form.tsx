@@ -6,11 +6,11 @@ import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
 import { Textarea } from '@components/ui/textarea'
 import { useFormState } from '@hooks/use-form-state'
+import { queryClient } from '@lib/react-query'
 import { AlertTriangle, Loader2 } from 'lucide-react'
+import { useParams } from 'next/navigation'
 
 import { createProjectAction } from './actions'
-import { useParams } from 'next/navigation'
-import { queryClient } from '@lib/react-query'
 
 export const CreateProjectForm = () => {
   const { orgSlug } = useParams<{ orgSlug: string }>()

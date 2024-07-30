@@ -1,4 +1,4 @@
-import { getCurrentOrg, ability } from '@auth/auth'
+import { ability } from '@auth/auth'
 import {
   Card,
   CardContent,
@@ -7,15 +7,15 @@ import {
   CardTitle,
 } from '@components/ui/card'
 import type { Metadata } from 'next'
-import { UpdateOrganizationForm } from './update-organization-form'
+
 import { ShutdownOrganization } from './shutdown-organization'
+import { UpdateOrganizationForm } from './update-organization-form'
 
 export const metadata: Metadata = {
   title: 'Org settings',
 }
 
 const Settings = async () => {
-  const currentOrg = getCurrentOrg()
   const permissions = await ability()
 
   const canUpdateOrganization = permissions?.can('update', 'Organization')
@@ -27,15 +27,19 @@ const Settings = async () => {
       <h1>Settings</h1>
 
       <div className="space-y-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Organization settings</CardTitle>
-            <CardDescription>Update your organization details</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <UpdateOrganizationForm />
-          </CardContent>
-        </Card>
+        {canUpdateOrganization && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Organization settings</CardTitle>
+              <CardDescription>
+                Update your organization details
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <UpdateOrganizationForm />
+            </CardContent>
+          </Card>
+        )}
 
         {canGetBillingOrganization && (
           <Card>
