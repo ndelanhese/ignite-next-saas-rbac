@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Home',
 }
 
-const Home = async () => {
+const Home = () => {
   return (
     <div className="space-y-4 py-4">
       <Header />

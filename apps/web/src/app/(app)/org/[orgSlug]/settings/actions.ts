@@ -2,7 +2,6 @@
 
 import { createOrganization } from '@http/create-organization'
 import { HTTPError } from 'ky'
-import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
 
 const createOrganizationSchema = z
@@ -60,7 +59,6 @@ export const createOrganizationAction = async (data: FormData) => {
       name,
       shouldAttachUsersByDomain,
     })
-    revalidateTag('organizations')
   } catch (error) {
     if (error instanceof HTTPError) {
       const { message } = await error.response.json<{ message: string }>()

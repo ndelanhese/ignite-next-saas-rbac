@@ -12,5 +12,11 @@ type getOrganizationsResponse = {
 }
 
 export const getOrganizations = async () => {
-  return await api.get('organizations').json<getOrganizationsResponse>()
+  return await api
+    .get('organizations', {
+      next: {
+        tags: ['organizations'],
+      },
+    })
+    .json<getOrganizationsResponse>()
 }
