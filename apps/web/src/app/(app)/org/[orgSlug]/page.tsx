@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 const Organization = async () => {
   return (
     <div className="space-y-4">
-      <h1>Organization</h1>
+      <h1 className="text-2xl font-bold">Organization</h1>
     </div>
   )
 }

@@ -32,7 +32,7 @@ const Settings = async () => {
 
   return (
     <div className="space-y-4">
-      <h1>Settings</h1>
+      <h1 className="text-2xl font-bold">Settings</h1>
 
       <div className="space-y-4">
         {canUpdateOrganization && (
