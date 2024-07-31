@@ -8,11 +8,20 @@ import { Label } from '@components/ui/label'
 import { useFormState } from '@hooks/use-form-state'
 import { AlertTriangle, Loader2 } from 'lucide-react'
 
-import { createOrganizationAction } from './actions'
+import {
+  updateOrganizationAction,
+  type UpdateOrganizationSchema,
+} from './actions'
 
-export const UpdateOrganizationForm = () => {
+type UpdateOrganizationFormProps = {
+  initialData: UpdateOrganizationSchema
+}
+
+export const UpdateOrganizationForm = ({
+  initialData,
+}: UpdateOrganizationFormProps) => {
   const [{ errors, message, success }, handleSubmit, isPending] = useFormState({
-    action: createOrganizationAction,
+    action: updateOrganizationAction,
   })
 
   return (
@@ -33,7 +42,7 @@ export const UpdateOrganizationForm = () => {
       )}
       <div className="space-y-1">
         <Label htmlFor="name">Organization Name</Label>
-        <Input name="name" id="name" />
+        <Input name="name" id="name" defaultValue={initialData.name} />
 
         {errors?.name && (
           <p className="text-sm font-medium text-red-500 dark:text-red-400">
@@ -50,6 +59,7 @@ export const UpdateOrganizationForm = () => {
           id="domain"
           inputMode="url"
           placeholder="example.com"
+          defaultValue={initialData.domain ?? undefined}
         />
 
         {errors?.domain && (
@@ -63,6 +73,7 @@ export const UpdateOrganizationForm = () => {
         <Checkbox
           id="shouldAttachUsersByDomain"
           name="shouldAttachUsersByDomain"
+          defaultChecked={initialData.shouldAttachUsersByDomain}
         />
         <div className="grid gap-1.5 leading-none">
           <label htmlFor="shouldAttachUsersByDomain" className="space-y-1">

@@ -1,10 +1,12 @@
 'use server'
 
-import { createOrganization } from '@http/create-organization'
+import { getCurrentOrg } from '@auth/auth'
+import { updateOrganization } from '@http/update-organization'
 import { HTTPError } from 'ky'
+import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
 
-const createOrganizationSchema = z
+const updateOrganizationSchema = z
   .object({
     name: z.string().min(4, 'Please include at least 4 characters.'),
     domain: z
@@ -41,10 +43,13 @@ const createOrganizationSchema = z
     },
   )
 
-export const createOrganizationAction = async (data: FormData) => {
-  const parsedData = createOrganizationSchema.safeParse(
+export type UpdateOrganizationSchema = z.infer<typeof updateOrganizationSchema>
+
+export const updateOrganizationAction = async (data: FormData) => {
+  const parsedData = updateOrganizationSchema.safeParse(
     Object.fromEntries(data),
   )
+  const currentOrganization = getCurrentOrg()
 
   if (!parsedData.success) {
     const errors = parsedData?.error?.flatten()?.fieldErrors
@@ -54,11 +59,14 @@ export const createOrganizationAction = async (data: FormData) => {
   const { domain, name, shouldAttachUsersByDomain } = parsedData.data
 
   try {
-    await createOrganization({
+    await updateOrganization({
       domain,
       name,
       shouldAttachUsersByDomain,
+      organizationSlug: currentOrganization!,
     })
+
+    revalidateTag('organizations')
   } catch (error) {
     if (error instanceof HTTPError) {
       const { message } = await error.response.json<{ message: string }>()
