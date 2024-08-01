@@ -24,7 +24,7 @@ import {
 import { Input } from '@components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { shutdownOrganization } from '@http/shutdown-organization'
-import { XCircle } from 'lucide-react'
+import { CircleX } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -55,8 +55,12 @@ export const ShutdownOrganization = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="w-56">
-          <XCircle className="mr-2 size-4" />
+        <Button
+          size="sm"
+          variant="destructive"
+          className="w-56"
+          icon={<CircleX className="mr-2 size-4" />}
+        >
           Shutdown organization
         </Button>
       </AlertDialogTrigger>

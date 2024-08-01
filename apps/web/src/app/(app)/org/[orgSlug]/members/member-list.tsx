@@ -94,8 +94,11 @@ export const MemberList = async () => {
                         'transfer_ownership',
                         authOrganization,
                       ) && (
-                        <Button size="sm" variant="ghost">
-                          <ArrowLeftRight className="mr-2 size-4" />
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          icon={<ArrowLeftRight className="mr-2 size-4" />}
+                        >
                           Transfer ownership
                         </Button>
                       )}
@@ -120,8 +123,9 @@ export const MemberList = async () => {
                                 member.userId === membership.userId ||
                                 member.userId === organization.ownerId
                               }
+                              icon={<UserMinus className="mr-2 size-4" />}
                             >
-                              <UserMinus className="mr-2 size-4" /> Remove
+                              Remove
                             </Button>
                           </AlertDialogTrigger>
                           <AlertDialogContent>

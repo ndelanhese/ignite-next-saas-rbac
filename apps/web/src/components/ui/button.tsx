@@ -1,5 +1,6 @@
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
+import { Loader2 } from 'lucide-react'
 import * as React from 'react'
 
 import { cn } from '@/lib/utils'
@@ -37,17 +38,55 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  isLoading?: boolean
+  icon?: React.ReactNode
+  iconPosition?: 'left' | 'right'
+  loaderClassName?: string
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      isLoading = false,
+      iconPosition = 'left',
+      icon,
+      loaderClassName,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : 'button'
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn('relative', buttonVariants({ variant, size, className }))}
         ref={ref}
+        disabled={isLoading || props.disabled}
         {...props}
-      />
+      >
+        <>
+          {icon && iconPosition === 'left' && (
+            <div className={cn(isLoading && 'invisible')}>{icon}</div>
+          )}
+          {isLoading ? (
+            <div className="invisible">{children}</div>
+          ) : (
+            <>{children}</>
+          )}
+          {isLoading && (
+            <Loader2
+              className={cn('absolute h-4 w-4 animate-spin', loaderClassName)}
+            />
+          )}
+          {icon && iconPosition === 'right' && (
+            <div className={cn(isLoading && 'invisible')}>{icon}</div>
+          )}
+        </>
+      </Comp>
     )
   },
 )

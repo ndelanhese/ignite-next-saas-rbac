@@ -7,7 +7,7 @@ import { Label } from '@components/ui/label'
 import { Textarea } from '@components/ui/textarea'
 import { useFormState } from '@hooks/use-form-state'
 import { queryClient } from '@lib/react-query'
-import { AlertTriangle, Loader2 } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import { useParams } from 'next/navigation'
 
 import { createProjectAction } from './actions'
@@ -62,12 +62,13 @@ export const CreateProjectForm = () => {
         )}
       </div>
 
-      <Button className="w-full" type="submit" disabled={isPending}>
-        {isPending ? (
-          <Loader2 className="size-4 animate-spin" />
-        ) : (
-          'Save project'
-        )}
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isPending}
+        isLoading={isPending}
+      >
+        Save project
       </Button>
     </form>
   )

@@ -22,8 +22,11 @@ export const RevokeInviteButton = ({ inviteId }: RevokeInviteButtonProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button size="sm" variant="destructive">
-          <CircleX className="mr-2 size-4" />
+        <Button
+          size="sm"
+          variant="destructive"
+          icon={<CircleX className="mr-2 size-4" />}
+        >
           Revoke invite
         </Button>
       </AlertDialogTrigger>

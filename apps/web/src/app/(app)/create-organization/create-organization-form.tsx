@@ -6,7 +6,7 @@ import { Checkbox } from '@components/ui/checkbox'
 import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
 import { useFormState } from '@hooks/use-form-state'
-import { AlertTriangle, Loader2 } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 
 import { createOrganizationAction } from './actions'
 
@@ -75,12 +75,13 @@ export const CreateOrganizationForm = () => {
         </div>
       </div>
 
-      <Button className="w-full" type="submit" disabled={isPending}>
-        {isPending ? (
-          <Loader2 className="size-4 animate-spin" />
-        ) : (
-          'Save organization'
-        )}
+      <Button
+        className="w-full"
+        type="submit"
+        disabled={isPending}
+        isLoading={isPending}
+      >
+        Save organization
       </Button>
     </form>
   )

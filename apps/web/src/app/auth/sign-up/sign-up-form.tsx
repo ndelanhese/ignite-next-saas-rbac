@@ -7,7 +7,7 @@ import { Input } from '@components/ui/input'
 import { Label } from '@components/ui/label'
 import { Separator } from '@components/ui/separator'
 import { useFormState } from '@hooks/use-form-state'
-import { AlertTriangle, Loader2 } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -80,12 +80,13 @@ export const SignUpForm = () => {
           )}
         </div>
 
-        <Button className="w-full" type="submit" disabled={isPending}>
-          {isPending ? (
-            <Loader2 className="size-4 animate-spin" />
-          ) : (
-            'Create account'
-          )}
+        <Button
+          className="w-full"
+          type="submit"
+          disabled={isPending}
+          isLoading={isPending}
+        >
+          Create account
         </Button>
 
         <Button className="w-full" variant="link" size="sm" asChild>
@@ -96,8 +97,13 @@ export const SignUpForm = () => {
       </form>
 
       <form action={signInWithGithub}>
-        <Button className="w-full" variant="outline" type="submit">
-          <GithubIcon className="mr-2 dark:invert" /> Sign up with Github
+        <Button
+          className="w-full"
+          variant="outline"
+          type="submit"
+          icon={<GithubIcon className="mr-2 dark:invert" />}
+        >
+          Sign up with Github
         </Button>
       </form>
     </div>
