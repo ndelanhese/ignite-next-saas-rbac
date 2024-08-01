@@ -11,7 +11,7 @@ export const revokeInvite = async (app: FastifyInstance) => {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
+    .delete(
       '/organizations/:organization_slug/invites/:invite_id',
       {
         schema: {
