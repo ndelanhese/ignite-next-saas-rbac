@@ -19,7 +19,7 @@ export const Tabs = async () => {
           <Button
             size="sm"
             variant="ghost"
-            className="border border-transparent text-muted-foreground data-[current=true]:border-border data-[current=true]:text-foreground"
+            className="border border-transparent text-sm text-muted-foreground data-[current=true]:border-border data-[current=true]:text-foreground"
             asChild
           >
             <NavLink href={`/org/${currentOrg}`}>Projects</NavLink>

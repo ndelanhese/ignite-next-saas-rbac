@@ -22,6 +22,7 @@ const buttonVariants = cva(
       },
       size: {
         default: 'h-10 px-4 py-2',
+        xs: 'h-6 px-2 text-xs',
         sm: 'h-9 rounded-md px-3',
         lg: 'h-11 rounded-md px-8',
         icon: 'h-10 w-10',
@@ -60,9 +61,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
-    const Comp = asChild ? Slot : 'button'
+    if (asChild) {
+      return (
+        <Slot
+          className={cn(buttonVariants({ variant, size, className }))}
+          ref={ref}
+          children={children}
+          {...props}
+        />
+      )
+    }
+
     return (
-      <Comp
+      <button
         className={cn('relative', buttonVariants({ variant, size, className }))}
         ref={ref}
         disabled={isLoading || props.disabled}
@@ -86,7 +97,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             <div className={cn(isLoading && 'invisible')}>{icon}</div>
           )}
         </>
-      </Comp>
+      </button>
     )
   },
 )
