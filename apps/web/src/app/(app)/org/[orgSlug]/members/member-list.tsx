@@ -18,7 +18,7 @@ import { getMembers } from '@http/get-members'
 import { getMembership } from '@http/get-membership'
 import { getOrganization } from '@http/get-organization'
 import { organizationSchema } from '@saas/auth'
-import { getNameInitials } from '@utils/get-name-initals'
+import { getNameInitials } from '@utils/get-name-initials'
 import { ArrowLeftRight, Crown, UserMinus } from 'lucide-react'
 
 import { removeMemberAction } from './actions'
@@ -62,7 +62,7 @@ export const MemberList = async () => {
                         />
                       )}
                       <AvatarFallback>
-                        {getNameInitials(member?.name ?? '')}
+                        {getNameInitials(member?.name)}
                       </AvatarFallback>
                     </Avatar>
                   </TableCell>

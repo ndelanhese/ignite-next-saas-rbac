@@ -1,4 +1,6 @@
-export const getNameInitials = (fullName: string): string => {
+export const getNameInitials = (fullName?: string | null): string => {
+  if (!fullName) return ''
+
   const names = fullName.split(' ')
   const firstNameInitial = names[0].charAt(0).toUpperCase()
   const lastNameInitial =

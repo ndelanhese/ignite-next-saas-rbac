@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
 import { signInWithPassword } from '@/http/sign-in-with-password'
+import { acceptInvite } from '@http/accept-invite'
 
 const signInSchema = z.object({
   email: z
@@ -36,6 +37,17 @@ export const signInWithEmailAndPassword = async (data: FormData) => {
       path: '/',
       maxAge: SEVEN_DAYS_IN_SECONDS,
     })
+
+    const inviteId = cookies().get('inviteId')?.value
+
+    if (inviteId) {
+      try {
+        await acceptInvite({ inviteId })
+        cookies().delete('inviteId')
+      } catch (error) {
+        console.error(error)
+      }
+    }
   } catch (error) {
     if (error instanceof HTTPError) {
       const { message } = await error.response.json<{ message: string }>()

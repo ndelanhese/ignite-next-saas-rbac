@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu'
 import { getOrganizations } from '@http/get-organizations'
-import { getNameInitials } from '@utils/get-name-initals'
+import { getNameInitials } from '@utils/get-name-initials'
 import { ChevronsUpDown, PlusCircle } from 'lucide-react'
 import Link from 'next/link'
 

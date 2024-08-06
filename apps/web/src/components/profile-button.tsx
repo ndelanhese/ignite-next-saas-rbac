@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@components/ui/dropdown-menu'
-import { getNameInitials } from '@utils/get-name-initals'
+import { getNameInitials } from '@utils/get-name-initials'
 import { ChevronDown, LogOut } from 'lucide-react'
 import Link from 'next/link'
 

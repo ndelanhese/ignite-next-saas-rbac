@@ -13,7 +13,7 @@ import {
 import { Skeleton } from '@components/ui/skeleton'
 import { getProjects } from '@http/get-projects'
 import { useQuery } from '@tanstack/react-query'
-import { getNameInitials } from '@utils/get-name-initals'
+import { getNameInitials } from '@utils/get-name-initials'
 import { ChevronsUpDown, PlusCircle } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'

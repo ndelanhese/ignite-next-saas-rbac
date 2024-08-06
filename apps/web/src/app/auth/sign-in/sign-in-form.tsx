@@ -9,13 +9,14 @@ import { Separator } from '@components/ui/separator'
 import { useFormState } from '@hooks/use-form-state'
 import { AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { signInWithGithub } from '../actions'
 import { signInWithEmailAndPassword } from './actions'
 
 export const SignInForm = () => {
   const { push } = useRouter()
+  const searchParams = useSearchParams()
 
   const [{ errors, message, success }, handleSubmit, isPending] = useFormState({
     action: signInWithEmailAndPassword,
@@ -34,7 +35,13 @@ export const SignInForm = () => {
         )}
         <div className="space-y-1">
           <Label htmlFor="email">E-mail</Label>
-          <Input name="email" type="email" id="email" inputMode="email" />
+          <Input
+            name="email"
+            type="email"
+            id="email"
+            inputMode="email"
+            defaultValue={searchParams.get('email') ?? undefined}
+          />
 
           {errors?.email && (
             <p className="text-sm font-medium text-red-500 dark:text-red-400">

@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@components/ui/card'
 import { getProjects } from '@http/get-projects'
-import { getNameInitials } from '@utils/get-name-initals'
+import { getNameInitials } from '@utils/get-name-initials'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { ArrowRight } from 'lucide-react'
@@ -39,7 +39,7 @@ export const ProjectList = async () => {
                 <AvatarImage src={project.owner.avatarUrl} />
               )}
               <AvatarFallback className="text-[.5rem]">
-                {getNameInitials(project.owner.name ?? '')}
+                {getNameInitials(project.owner.name)}
               </AvatarFallback>
             </Avatar>
 
