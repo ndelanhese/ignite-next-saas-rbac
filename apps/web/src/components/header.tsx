@@ -6,6 +6,7 @@ import { DatabaseZap, Slash } from 'lucide-react'
 import Link from 'next/link'
 
 import { OrganizationSwitcher } from './organization-switcher'
+import { PendingInvites } from './pending-invites'
 import { ProjectSwitcher } from './project-switcher'
 
 export const Header = async () => {
@@ -30,6 +31,7 @@ export const Header = async () => {
       </div>
 
       <div className="inline-flex items-center gap-4">
+        <PendingInvites />
         <ThemeSwitcher />
         <Separator orientation="vertical" className="h-5" />
         <ProfileButton />

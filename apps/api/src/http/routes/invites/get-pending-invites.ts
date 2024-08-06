@@ -10,20 +10,23 @@ export const getPendingInvites = async (app: FastifyInstance) => {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
-    .post(
+    .get(
       '/pending-invites',
       {
         schema: {
           tags: ['invites'],
           summary: 'Get all user pending invites',
           response: {
-            204: z.object({
+            200: z.object({
               invites: z.array(
                 z.object({
                   id: z.string().uuid(),
                   email: z.string().email(),
                   role: roleSchema,
                   createdAt: z.date(),
+                  organization: z.object({
+                    name: z.string(),
+                  }),
                   author: z
                     .object({
                       id: z.string().uuid(),
